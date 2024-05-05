@@ -86,6 +86,30 @@ func PerformPostFormRequest() {
 
 }
 
+func doPostReq() {
+	reqBody := strings.NewReader(`
+	{
+		"courseName" : "golang",
+		"price" : 0
+	}
+	`)
+
+	res, err := http.Post("http://localhost:8000/post", "application/json", reqBody)
+	checkNilError(err)
+	defer res.Body.Close()
+
+	databytes, err := io.ReadAll(res.Body)
+	checkNilError(err)
+
+	var stringResponse strings.Builder
+
+	byteCount, err := stringResponse.Write(databytes)
+	checkNilError(err)
+
+	fmt.Println("Count : ", byteCount)
+	fmt.Println("Response : ", stringResponse.String())
+}
+
 func checkNilError(err error) {
 	if err != nil {
 		panic(err)

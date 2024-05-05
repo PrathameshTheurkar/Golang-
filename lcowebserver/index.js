@@ -26,6 +26,8 @@ app.post('/post', (req, res) => {
 })
 
 app.post('/postform', (req, res) => {
+
+    // console.log(req.body)
     res.status(200).send(JSON.stringify(req.body));
 })
   

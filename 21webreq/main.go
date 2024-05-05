@@ -12,8 +12,7 @@ import (
 func main() {
 	// PerformGetRequest()
 	// PerformPostRequest()
-	// PerformPostFormRequest()
-	sendGetRequest()
+	PerformPostFormRequest()
 }
 
 func PerformGetRequest() {

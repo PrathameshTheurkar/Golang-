@@ -16,7 +16,6 @@ type User struct {
 var users []User
 
 func main() {
-	fmt.Println("Hello from the first server")
 
 	// SEEDING
 	users = append(users, User{"1", "Prathamesh"})

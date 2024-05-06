@@ -32,6 +32,7 @@ func main() {
 	r.HandleFunc("/users", getAllUsers).Methods("GET")
 	r.HandleFunc("/user", createUser).Methods("POST")
 	r.HandleFunc("/user/{id}", updateUser).Methods("PUT")
+	r.HandleFunc("/user/{id}", deleteUser).Methods("DELETE")
 
 	fmt.Println("Server is running on port 3000")
 	// SERVER RUNNING
@@ -78,4 +79,20 @@ func updateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	json.NewEncoder(w).Encode("No user found!!")
+}
+
+func deleteUser(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	params := mux.Vars(r)
+
+	for index, user := range users {
+		if user.Id == params["id"] {
+			users = append(users[:index], users[index+1:]...)
+			json.NewEncoder(w).Encode("User deleted successfully")
+			return
+		}
+	}
+
+	json.NewEncoder(w).Encode("No user found")
 }

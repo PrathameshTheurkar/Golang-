@@ -13,7 +13,13 @@ type User struct {
 	Name string `json:"name"`
 }
 
+// FAKE DB
 var users []User
+
+// MIDDLEWARE / HELPER
+func (u *User) isEmpty() bool {
+	return u.Id == "" && u.Name == ""
+}
 
 func main() {
 
@@ -54,6 +60,11 @@ func createUser(w http.ResponseWriter, r *http.Request) {
 
 	var user User
 	_ = json.NewDecoder(r.Body).Decode(&user)
+
+	if user.isEmpty() {
+		json.NewEncoder(w).Encode("Please enter the name")
+		return
+	}
 
 	users = append(users, user)
 	json.NewEncoder(w).Encode(user)
